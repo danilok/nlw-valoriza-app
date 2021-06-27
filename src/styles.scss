@@ -1,6 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+/* import only the necessary Bootstrap files */
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
 html body {
   padding-top: 60px;
   background-color: #121214;
   color: var(--white);
 }
+
+/* simply assign the value */
+$body-bg: #eeeeee;
+$nav-pills-link-active-bg:          $purple;
+
+/* -------begin customization-------- */
+/* change the primary theme color to red */
+$theme-colors: (
+  primary: $purple
+);
+
+body a {
+  color: var(--cyan)
+}
+/* -------end customization-------- */
+/* finally, import Bootstrap to set the changes! */
+@import "bootstrap";
