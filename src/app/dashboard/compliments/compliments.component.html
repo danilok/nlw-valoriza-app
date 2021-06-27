@@ -1,29 +1,31 @@
-<table *ngIf="receivedCompliments.length > 0" class="table">
-  <thead>
-    <th class="col-2">Usuário Recebedor</th>
-    <th class="col-2">Tag</th>
-    <th class="col-8">Mensagem</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let compliment of receivedCompliments">
-      <td>{{ compliment.userReceiver.name }}</td>
-      <td>{{ compliment.tag.name }}</td>
-      <td>{{ compliment.message }}</td>
-    </tr>
-  </tbody>
-</table>
-<br>
-<table *ngIf="sentCompliments.length > 0" class="table">
-  <thead>
-    <th class="col-2">Usuário Emissor</th>
-    <th class="col-2">Tag</th>
-    <th class="col-8">Mensagem</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let compliment of sentCompliments">
-      <td>{{ compliment.userSender.name }}</td>
-      <td>{{ compliment.tag.name }}</td>
-      <td>{{ compliment.message }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+
+  <ul class="nav nav-pills nav-fill mt-4 mb-4">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="tab" aria-current="page" (click)="tab = !tab"><i class="fa fa-inbox mr-1"></i>Received</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="!tab" (click)="tab = !tab"><i class="fa fa-send-o mr-1"></i>Sent</a>
+    </li>
+  </ul>
+
+  <div *ngIf="receivedCompliments.length > 0 && tab">
+    <div class="card card border-dark mt-2 mb-3" *ngFor="let compliment of receivedCompliments" apDarkenOnHover>
+      <div class="card-body bg-dark">
+        <h5 class="card-title mb-2">Sender: {{ compliment.userSender.name }}</h5>
+        <h6 class="card-subtitle mt-2"><span class="badge bg-success text-light">{{ compliment.tag.name }}</span></h6>
+        <h6 class="card-text mt-3 mb-3">{{ compliment.message }}</h6>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="sentCompliments.length > 0 && !tab">
+    <div class="card border-dark mt-2 mb-3" *ngFor="let compliment of sentCompliments" apDarkenOnHover>
+      <div class="card-body bg-dark">
+        <h5 class="card-title mb-2">Sender: {{ compliment.userReceiver.name }}</h5>
+        <h6 class="card-subtitle mt-2"><span class="badge bg-success text-light">{{ compliment.tag.name }}</span></h6>
+        <h6 class="card-text mt-3 mb-3">{{ compliment.message }}</h6>
+      </div>
+    </div>
+  </div>
+</div>

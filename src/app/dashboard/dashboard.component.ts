@@ -22,6 +22,7 @@ export class DashboardComponent {
     });
 
     const rota = this.router.routerState.snapshot.url;
+    this.verifyActive(rota);
   }
 
   verifyActive(route: string) {

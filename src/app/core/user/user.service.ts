@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { TokenService } from '../token/token.service';
 
 import jwt_decode from 'jwt-decode';
-import { User } from './user';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { User, Payload } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -12,8 +14,11 @@ export class UserService {
   private userName: string;
   private email: string;
   private id: string;
+  private user: User;
 
-  constructor(private tokenService: TokenService) {
+  constructor(
+    private tokenService: TokenService,
+    private httpClient: HttpClient) {
     tokenService.hasToken() &&
       this.decodeAndNotify();
   }
@@ -29,13 +34,19 @@ export class UserService {
 
   private decodeAndNotify() {
     const token = this.tokenService.getToken();
-    const user = jwt_decode(token) as User;
+    const payload = jwt_decode(token) as Payload;
     // console.log(user);
 
+    this.httpClient
+      .get(environment.API_URL + `/users/${payload.sub}`)
+      .subscribe((res: User) => {
+        // console.log(res)
+        this.email = res.email;
+        this.id = res.id;
+        this.user = res;
+        this.userSubject.next(res);
+      })
     // this.userName = user.name;
-    this.email = user.email;
-    this.id = user.sub;
-    this.userSubject.next(user);
   }
 
   logout() {

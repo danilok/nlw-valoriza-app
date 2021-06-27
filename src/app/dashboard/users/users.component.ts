@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/user/user';
 import { UserService } from 'src/app/core/user/user.service';
 import { environment } from 'src/environments/environment';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  admin: boolean;
-}
+// interface User {
+//   id: string;
+//   name: string;
+//   email: string;
+//   admin: boolean;
+// }
 
 @Component({
   selector: 'app-users',
@@ -17,7 +18,7 @@ interface User {
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
-  currentUser: string;
+  currentUser: User;
 
   constructor(
     private httpClient: HttpClient,
@@ -30,7 +31,13 @@ export class UsersComponent implements OnInit {
       .get<User[]>(environment.API_URL + '/users')
       .subscribe(res => this.users = res);
 
-    this.currentUser = this.userService.getId()
+    this.userService
+      .getUser()
+      .subscribe(user => {
+        // console.log(user);
+
+        this.currentUser = user
+      });
   }
 
   onClick(user: User) {

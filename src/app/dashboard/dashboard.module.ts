@@ -9,12 +9,14 @@ import { TagsComponent } from './tags/tags.component';
 import { ComplimentsComponent } from './compliments/compliments.component';
 import { ComplimentComponent } from './compliment/compliment.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DarkenOnHoverModule } from '../shared/directives/darken-on-hover/darken-on-hover.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    DarkenOnHoverModule,
     DashboardRoutingModule
   ],
   exports: [DashboardComponent],

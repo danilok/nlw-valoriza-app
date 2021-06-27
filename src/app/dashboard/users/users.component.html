@@ -1,27 +1,19 @@
-<table class="table">
-  <thead>
-    <th>Usuário</th>
-    <th>Email</th>
-    <th>Admin</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td class="col-5">{{ user.name }}</td>
-      <td class="col-5">{{ user.email }}</td>
-      <td class="col-2 align-self-end">
+<div class="container">
+  <div class="card border-dark  mt-2 mb-3" *ngFor="let user of users" apDarkenOnHover>
+    <div class="card-body bg-dark">
+      <h5 class="card-title">{{ user.name }}</h5>
+      <p class="card-text">{{ user.email }}</p>
+      <p class="card-text">
         <span *ngIf="user.admin; else notAdmin" class="badge bg-success text-light">Admin</span>
         <ng-template #notAdmin><span class="badge bg-secondary text-light">Member</span></ng-template>
-      </td>
-      <td>
-        <button
-          type="button"
-          class="btn btn-primary"
-          [disabled]="user.id === currentUser ? true : false"
-          (click)="onClick(user)"
-        >
-          Elogiar
-        </button>
-      </td>
-    </tr>
-  </tbody>
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="user.id === currentUser?.id ? true : false"
+        (click)="onClick(user)"
+      >
+      Compliment <i class="fa fa-commenting-o ml-1"></i>
+      </button>
+    </div>
+</div>

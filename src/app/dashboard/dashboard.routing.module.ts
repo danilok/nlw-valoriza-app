@@ -27,15 +27,15 @@ const routes: Routes = [
         component: ComplimentsComponent,
       },
       {
-        path: 'compliment',
-        component: ComplimentComponent,
-      },
-      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'users'
       },
     ]
+  },
+  {
+    path: 'compliment',
+    component: ComplimentComponent,
   }
 ]
 

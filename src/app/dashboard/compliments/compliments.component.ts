@@ -17,6 +17,7 @@ interface Compliments {
 export class ComplimentsComponent implements OnInit {
   sentCompliments: Compliments[] = [];
   receivedCompliments: Compliments[] = [];
+  tab = true;
 
   constructor(private httpClient: HttpClient) { }
 

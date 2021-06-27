@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { environment } from 'src/environments/environment';
 import { Tag } from '../Tag';
 
@@ -13,13 +14,7 @@ import { Tag } from '../Tag';
 export class ComplimentComponent implements OnInit {
   data: any = {};
   routeState: any;
-  tags: Tag[] = [
-    {
-      id: 'aaa',
-      name: 'aaa',
-      name_custom: 'bbb'
-    }
-  ];
+  tags: Tag[] = [];
 
   complimentForm: FormGroup;
 
@@ -37,11 +32,15 @@ export class ComplimentComponent implements OnInit {
         this.data.currentUser = this.routeState.currentUser ? this.routeState.currentUser : '';
         // console.log(this.data)
       }
+    } else {
+      this.router.navigate(['dashboard/users'])
     }
   }
 
   ngOnInit() {
+    const name  = this.data?.user?.name ? this.data.user.name : '';
     this.complimentForm = this.formBuilder.group({
+      name: [{value: name, disabled: true}],
       tag: ['', Validators.required],
       message: ['', Validators.required]
     })
@@ -51,5 +50,23 @@ export class ComplimentComponent implements OnInit {
       .subscribe(res => this.tags = res);
   }
 
-  sendCompliment() {}
+  sendCompliment() {
+    const { tag, message } = this.complimentForm.getRawValue();
+    this.httpClient
+      .post(
+        environment.API_URL + '/compliments',
+        {
+          tag_id: tag,
+          user_receiver: this.data.user.id,
+          message
+         }
+      )
+      .subscribe(res => {
+        this.router.navigate(['dashboard/users']);
+      });
+  }
+
+  onCancel() {
+    this.router.navigate(['dashboard/users']);
+  }
 }
