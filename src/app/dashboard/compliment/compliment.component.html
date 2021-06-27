@@ -1,0 +1,43 @@
+
+<h4 class="text-center">Faça seu elogio</h4>
+
+<div class="container">
+
+<form [formGroup]="complimentForm" class="form mt-4" (submit)="sendCompliment()">
+
+  <div class="form-group">
+    <select
+      formControlName="tag"
+      name="tags"
+      class="form-control form-select"
+      aria-label="Default select example">
+      <option *ngFor="let tag of tags" [value]="tag.id">
+        {{ tag.name }}
+      </option>
+    </select>
+    <ap-vmessage
+      *ngIf="complimentForm.get('tag').errors?.required"
+      text="Tag is required!"></ap-vmessage>
+  </div>
+
+  <div class="form-group">
+    <textarea
+      formControlName="message"
+      class="form-control"
+      placeholder="message"
+      rows="3">
+    </textarea>
+    <ap-vmessage
+      *ngIf="complimentForm.get('message').errors?.required"
+      text="Message is required!"></ap-vmessage>
+  </div>
+
+  <button
+    [disabled]="complimentForm.invalid"
+    type="submit"
+    class="btn btn-primary btn-block">
+    Enviar elogio
+  </button>
+
+</form>
+</div>

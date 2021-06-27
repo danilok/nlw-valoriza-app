@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nlwValoriza-app": {
+    "alurapic": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/nlwValoriza-app",
+            "outputPath": "dist/valoriza",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,7 +28,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },
@@ -61,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nlwValoriza-app:build"
+            "browserTarget": "alurapic:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "nlwValoriza-app:build:production"
+              "browserTarget": "alurapic:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nlwValoriza-app:build"
+            "browserTarget": "alurapic:build"
           }
         },
         "test": {
@@ -87,7 +93,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -109,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "nlwValoriza-app:serve"
+            "devServerTarget": "alurapic:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "nlwValoriza-app:serve:production"
+              "devServerTarget": "alurapic:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "nlwValoriza-app"
+  "defaultProject": "alurapic"
 }

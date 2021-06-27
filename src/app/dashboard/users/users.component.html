@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <th>Usuário</th>
+    <th>Email</th>
+    <th>Admin</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td class="col-5">{{ user.name }}</td>
+      <td class="col-5">{{ user.email }}</td>
+      <td class="col-2 align-self-end">
+        <span *ngIf="user.admin; else notAdmin" class="badge bg-success text-light">Admin</span>
+        <ng-template #notAdmin><span class="badge bg-secondary text-light">Member</span></ng-template>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="user.id === currentUser ? true : false"
+          (click)="onClick(user)"
+        >
+          Elogiar
+        </button>
+      </td>
+    </tr>
+  </tbody>

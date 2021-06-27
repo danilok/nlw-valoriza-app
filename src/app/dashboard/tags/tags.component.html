@@ -1,0 +1,12 @@
+<table *ngIf="tags.length > 0" class="table">
+  <thead>
+    <th>Tag</th>
+    <th>Hashtag</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tag of tags">
+      <td>{{ tag.name }}</td>
+      <td>{{ tag.name_custom }}</td>
+    </tr>
+  </tbody>
+</table>
